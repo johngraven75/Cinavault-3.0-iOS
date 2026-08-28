@@ -26,7 +26,7 @@ jobs:
       - run: npm ci
       - run: npm run test
       - run: npx tauri ios init --ci
-      - run: npx tauri ios build --debug --target aarch64-apple-ios-sim
+      - run: npx tauri ios build --debug --target aarch64-sim
       - uses: actions/upload-artifact@v4
         with:
           name: cinavault-3-ios-simulator-app
