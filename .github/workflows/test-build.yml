@@ -1,4 +1,5 @@
 name: Build iOS simulator test app
+# Rebuild after NAS command compilation repair.
 
 on:
   workflow_dispatch:
