@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "build": "v3.0.0-foundation.3",
+  "status": "in_progress",
+  "releaseAuthorized": false,
+  "platforms": ["windows", "linux-ubuntu", "android", "ios"],
+  "excludedRepositories": ["johngraven75/Cinavault-Reimagined"],
+  "phases": {
+    "repositoryAudit": {"status": "verified", "evidence": "Independent CinaVault 3.0 repository created from the documented baseline at a1f1d96 with separate OS edition repositories."},
+    "rootCauseDiagnosis": {"status": "verified", "evidence": "Technical-design review identified the desktop-to-service boundary and unsafe-storage gaps."},
+    "implementation": {"status": "in_progress", "evidence": "Loopback service now includes durable registration, bounded inspection, and a transient Windows-aware volume identity probe; scanning and catalogue writes remain disabled."},
+    "dependencyConfiguration": {"status": "fixed_and_verified", "evidence": "The Rust toolchain includes a Windows GNU target and the Windows API binding features required by the native identity probe."},
+    "staticReview": {"status": "in_progress", "evidence": "Rust formatting, Linux service tests, a Windows cross-target check, TypeScript strict type checks, and the desktop build pass; service review remains pending."},
+    "cleanBuild": {"status": "in_progress", "evidence": "Frontend production build, alpha.3 service crate compile, and Windows cross-target type check pass; installer and service packaging remain pending."},
+    "automatedTests": {"status": "in_progress", "evidence": "Service suite passes 13 safety, persistence, inspection, and probe tests; inherited desktop suite passes 25 tests, but release validation remains pending."},
+    "runtimeUi": {"status": "not_applicable", "evidence": "This milestone adds no UI change; service API is validated in-process and desktop wiring is deferred."},
+    "persistenceMigration": {"status": "in_progress", "evidence": "A versioned local volume registry persists only approved source metadata with a backup; catalogue migration remains intentionally out of scope."},
+    "networkApi": {"status": "fixed_and_verified", "evidence": "Loopback health, registration, bounded inspection, transient route probing, and dry-run reconciliation routes are tested; write-capable reconciliation returns HTTP 409."},
+    "securityPrivacy": {"status": "fixed_and_verified", "evidence": "The service defaults to loopback, stores no credentials, accepts only registered identifiers for inspection or probing, persists no probe result, and rejects write-capable reconciliation."},
+    "performanceReliability": {"status": "in_progress", "evidence": "Inspection is limited to 100 immediate entries and probing performs only a bounded readability check; network-volume reliability requires later implementation."},
+    "crossPlatformParity": {"status": "in_progress", "evidence": "CinaVault 3.0 now tracks separate Windows, Ubuntu Linux, Android, and iOS edition repositories; platform parity validation remains pending per edition."},
+    "packaging": {"status": "in_progress", "evidence": "Desktop MSI and NSIS configuration are retained, while server WiX packaging is a later approved milestone."},
+    "installationLaunch": {"status": "not_applicable", "evidence": "No production Windows Service installer is claimed in the foundation milestone; validation requires a Windows runner."},
+    "finalRegression": {"status": "in_progress", "evidence": "Alpha.3 service tests and Windows cross-target check pass alongside inherited frontend tests; release authorization remains false pending Windows service and installer validation."}
+  },
+  "acceptanceCriteria": {
+    "liveMetadataPull": {"status": "not_applicable", "evidence": "Metadata-provider changes are outside the standalone service and volume-foundation milestone."},
+    "metadataDatabaseWrite": {"status": "not_applicable", "evidence": "Foundation reconciliation is dry-run only and intentionally does not write catalogue or metadata records."},
+    "posterInformation": {"status": "not_applicable", "evidence": "Artwork migration and managed-poster implementation are deferred until after safe storage foundations."},
+    "posterBytes": {"status": "not_applicable", "evidence": "Artwork byte delivery is unchanged in this milestone and is not a service-foundation acceptance target."},
+    "secureArtworkDelivery": {"status": "not_applicable", "evidence": "Managed artwork storage and authenticated delivery are deferred to the later artwork and privacy release."},
+    "correctLibraryCard": {"status": "not_applicable", "evidence": "No desktop library-card interface change is included in the initial service foundation."},
+    "uncappedLibraryTotal": {"status": "in_progress", "evidence": "Large-library performance and durable catalogue scaling require the planned volume and persistence implementation."},
+    "providerPersistence": {"status": "not_applicable", "evidence": "Provider persistence is deferred while the service remains intentionally local and no-write."},
+    "windowsInstallers": {"status": "in_progress", "evidence": "Existing desktop bundle targets are retained; dedicated service installer validation requires the later WiX package and Windows runner."}
+  },
+  "externalBlockers": [
+    {
+      "cause": "Windows-only service installation validation",
+      "platform": "windows",
+      "reason": "The current sandbox validates source, contracts, and loopback behavior but cannot run SCM, WiX, Defender, or firewall integration tests.",
+      "requiredResolution": "Run the dedicated Windows installer and service acceptance suite on a signed Windows build runner."
+    }
+  ],
+  "criticalDefects": []
+}
